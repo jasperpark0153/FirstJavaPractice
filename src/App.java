@@ -1,5 +1,8 @@
 import java.io.File;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -7,7 +10,8 @@ import java.util.Scanner;
 public class App {
     public static void main(String[] args) throws Exception {
 
-        File hangmanFile = new File("/Users/jiho/Documents/codePractice/javaPractice/src/hangmanList.txt");
+        // I don't really know how to get the hangmanList file path in general so you're going to have to manually switch everytime you switch the computers
+        File hangmanFile = new File("/Users/jiho/Documents/codePractice/javapractice/FirstJavaPractice/src/hangmanList.txt");
         Scanner scanner = new Scanner(hangmanFile);
 
         ArrayList<String> hangmanContent = new ArrayList<String>();
@@ -34,16 +38,22 @@ public class App {
             String convert_c_to_String = Character.toString(c);
             random_element_ArrayList.add(convert_c_to_String);
         }
+        System.out.println(random_element_ArrayList);
 
-
+        // Convert [k, i, c, k] -> [_, _, _, _]
         ArrayList<String> unknownWord = new ArrayList<String>();
-
-        for(int i = 0; i <= randomElement.length(); i++){ 
+        for(int i = 0; i < randomElement.length(); i++){ 
             unknownWord.add("_");
         }
+
         String unknownWordString = String.join(", ", unknownWord).replace(",", " ").replace(" ","");
+        unknownWordString = unknownWordString.replace("", " ").trim();
         
             
+        // Changing string into ArrayList so that underscores(_) can be changed
+        ArrayList<String> foundWordArrayList = new ArrayList<>(Arrays.asList(unknownWordString.split(",")));
+        
+
         boolean gameLoop = true;
         Scanner scanner2 = new Scanner(System.in);
         String userGuess;
@@ -73,9 +83,10 @@ public class App {
             }
 
             // Something wrong with this part here, fix it
-            for(int i = 0; i < unknownWordString.length(); i++){
-                if(userGuess == random_element_ArrayList.get(i)){
-                    System.out.println("Correct");
+            for(int i = 0; i < random_element_ArrayList.size(); i++){
+                if(random_element_ArrayList.contains(userGuess)){
+                    //unknownWord.set(i, userGuess);
+                    //System.out.println("correct");
                 }
             }
 
